@@ -1,0 +1,16 @@
+; Summary: Proxy Switchy! Exported Rule List
+; Date: 2014年3月20日
+; Website: http://bit.ly/proxyswitchy
+
+#BEGIN
+
+[wildcard]
+community.weimi.me
+shequ.dev.weimi.me
+star.weimi.me
+wiki.hiwemeet.com
+
+[regexp]
+
+
+#END
