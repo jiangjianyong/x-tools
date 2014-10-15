@@ -1,0 +1,11 @@
+# m h dom mon dow user  command
+
+#备份数据库,清理过期备份
+0 1 * * * cd ~/deploy_script/backup/; sh backup_db.sh 192.168.1.50 qian xxxxxx qian_db; sh cleanup.sh ~/backup/qian_db/qian_db
+
+#备份redis,清理过期备份
+30 1 * * * cd ~/deploy_script/backup/; sh backup_files.sh apple@192.168.1.52 /var/lib/redis/ ~/backup/redis/redis; sh cleanup.sh ~/backup/redis/redis
+
+#备份code,清理过期备份
+0 2 * * * cd ~/deploy_script/backup/; sh backup_files.sh apple@192.168.1.51 /home/apple/code_service/src/db ~/backup/code/code ; sh cleanup.sh ~/backup/code/code
+

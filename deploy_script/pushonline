@@ -1,0 +1,94 @@
+#!/usr/bin/env python
+import os
+import sys
+import time
+from optparse import OptionParser
+from deploy_util import *
+
+def confirm_online():
+    cmd = "git fetch; git reset --hard origin/test"
+    os.system(cmd)
+
+    shortlog = os.popen("git shortlog origin/online...HEAD").read().strip()
+    if len(shortlog)==0:
+        print "nothing to be online"
+        exit()
+    print "since last online commits:"
+    print shortlog
+
+    contain = os.popen("git branch --contains origin/online -a |grep 'origin/test'").read().strip()
+    if len(contain)==0:
+        yes_no("This version does not contain the latest online version, are you sure to continue?","no")
+    yes_no("Are you sure to online?","no")
+
+#check online machine env
+def check_online_dirty():
+    if g_options.force != True:
+        dirty = False
+        for (host, repodir) in g_hostlist:
+            cmd = "ssh %s "%host
+            cmd += "'cd %s;"%repodir
+            cmd += "git diff'"
+            if len(os.popen(cmd).read().strip())>0:
+                color_print("Error: %s:%s dirty"%(host,repodir))
+                dirty = True
+            else:
+                print "%s:%s clean"%(host,repodir)
+
+        if dirty:
+            exit()
+
+def online():
+    pushcmd = "git push origin HEAD:refs/heads/online -f"
+    print ""
+    print pushcmd
+    os.system(pushcmd)
+    os.system("git tag \"online_`date +%Y%m%d%H%M`_`git config user.name`\"")
+    os.system("git push --tags")
+
+    #sync online env
+    count = 0
+    for (host,repodir) in g_hostlist:
+        print "\nonline env: %s:%s"%(host,repodir)
+        cmd = "ssh %s "%host
+        cmd += "'cd %s;"%repodir
+        cmd += "echo \"git fetch\";git fetch;"
+        cmd += "git checkout online 2>/dev/null || git checkout -b online 2>/dev/null;"
+        cmd += "echo \"git reset --hard origin/online\"; git reset --hard origin/online;"
+        if os.path.exists("deploy/%s"%g_reponame):
+            cmd += "echo \"%s deploy\"; cd deploy; ./%s postonline;"%(g_reponame,g_reponame)
+        if g_options.module_command:
+            cmd += "cd deploy; ./%s %s;"%(g_reponame, g_options.module_command)
+        cmd += g_options.command + "'"
+        os.system(cmd)
+        count += 1
+        if count < len(g_hostlist):
+            print "sleep %s seconds"%g_options.sleep_time
+            time.sleep(g_options.sleep_time)
+
+
+def main():
+    global g_options, g_args,g_hostlist,g_reponame
+    parser = OptionParser()
+    parser.add_option("-f", "--force", action="store_true", dest="force",
+                              help="force online even if online env dirty")
+    parser.add_option("-c", "--command", dest="command",default="",
+            help="specify the shell command which will be run after online")
+
+    parser.add_option("-m", "--module-command", dest="module_command",default="",
+            help="specify the module command which will be run after online")
+    parser.add_option("-s", "--sleep-time",type="int",  dest="sleep_time",default=1,
+            help="specify the sleep time after online a machine")
+    parser.add_option("-q", "--quiet",action="store_true",  dest="quiet",
+            help="not confirm")
+    (g_options, g_args) = parser.parse_args()
+
+    g_reponame = get_reponame()
+    if not g_options.quiet:
+        confirm_online()
+    g_hostlist = get_host_list("deploy/online.conf")
+    check_online_dirty()
+    online()
+
+if __name__ == "__main__":
+    main()

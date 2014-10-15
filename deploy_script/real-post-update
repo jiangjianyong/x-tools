@@ -1,0 +1,26 @@
+#!/bin/sh
+
+repo=$(pwd | sed 's|^.*repositories/||g')
+dir=$(echo "$repo" | sed 's|\.git||g')
+
+echo 'Git Repo:'$repo
+echo 'Git Dir:'$dir
+
+branch=
+case " $* " in
+*' refs/heads/master '*)
+	branch=master
+	;;
+*' refs/heads/test '*)
+	branch=test
+    ssh webrd@123.57.2.65 "/alidata/webrd/www/deploy_script/updatetest /alidata/webrd/www/$dir; cd /alidata/webrd/www/$dir/deploy/; sh deploy_test.sh;"
+    echo "/alidata/webrd/www/deploy_script/updatetest /alidata/webrd/www/$dir; cd /alidata/webrd/www/$dir/deploy/; sh deploy_test.sh;"
+	;;
+*' refs/heads/online '*)
+	branch=online
+	;;
+*)
+	exit
+	;;
+esac
+

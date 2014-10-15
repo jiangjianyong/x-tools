@@ -1,0 +1,8 @@
+#!/bin/sh
+#
+# An example hook script to prepare a packed repository for use over
+# dumb transports.
+#
+# To enable this hook, rename this file to "post-update".
+
+/alidata/webrd/www/deploy_script/real-post-update $*

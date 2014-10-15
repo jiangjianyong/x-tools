@@ -1,0 +1,30 @@
+#!/usr/bin/python
+import sys
+import re
+
+if len(sys.argv) < 3:
+	print "USAGE: %s deploy.conf template"%sys.argv[0]
+	exit()
+fdeployconf = open(sys.argv[1])
+ftemplate = open(sys.argv[2])
+
+template = ftemplate.read()
+ftemplate.close()
+
+config = {}
+for line in fdeployconf:
+	line = line.strip()
+	if line.startswith("#") or len(line)==0:
+		continue
+	parts = line.split("=")
+	key = parts[0].strip()
+	value = parts[1].strip()
+	config[key] = value
+
+for key in config:
+	regex = "{{\\s*%s\\s*}}"%key
+	template=re.sub(regex,config[key],template)
+
+print template
+	
+		

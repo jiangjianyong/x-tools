@@ -1,0 +1,27 @@
+#!/usr/bin/python
+
+import sys
+import os
+
+repodir = sys.argv[1]
+os.chdir(repodir)
+pos = repodir.rfind("/")
+repo = repodir
+if pos!=-1:
+    repo = repo[pos+1:]
+
+print 'git fetch'
+os.system("git fetch")
+
+print 'git reset --hard origin/test'
+os.system("git checkout test 2>/dev/null || git checkout -b test 2>/dev/null; git reset --hard origin/test;")
+if os.path.exists("deploy/%s"%repo):
+    os.system("cd deploy;./%s posttest;"%repo)
+
+cmd = 'echo "auto commit; related source `git log|head -n 5|grep commit`"'
+msg = os.popen(cmd).read().strip().replace("\"","\\\"")
+
+cmd = "cd bin 2>/dev/null && (git fetch; git reset --hard origin/test) && cd - && "
+cmd += "cd src 2>/dev/null && make && cd - &&"
+cmd += "cd bin 2>/dev/null && (git ci -a -m \"%s\"; git push origin HEAD:master && git push origin HEAD:test -f) && cd -"%msg
+os.system(cmd)

@@ -1,0 +1,8 @@
+#!/bin/sh
+#this command is useful to developer on windows git such as ue
+
+repo=`git remote  -v|awk '{print $2}'`
+host=`echo $repo|sed 's/:.*//g'`
+repodir=`echo $repo|sed 's/.*://g'`
+ssh $host "cd $repodir; git fetch; git reset --hard origin/master"
+git pull

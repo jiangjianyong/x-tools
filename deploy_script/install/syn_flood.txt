@@ -1,0 +1,8 @@
+# echo 1 > /proc/sys/net/ipv4/tcp_syncookies 
+
+
+This setting will be reset if the system is rebooted.
+To make the change permanent just edit /etc/sysctl.conf and add the line tcp_syncookies = 1
+# vi /etc/sysctl.conf
+
+  tcp_syncookies = 1 //Add the line

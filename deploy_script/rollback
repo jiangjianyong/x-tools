@@ -1,0 +1,72 @@
+#!/usr/bin/env python
+import os
+import sys
+import time
+from optparse import OptionParser
+from deploy_util import yes_no, get_reponame,get_host_list
+
+def rollback():
+    global g_args
+    if len(g_args) > 0:
+        roll_tag = g_args[0]
+    else:    
+        cmd = "git fetch;git tag|grep online|tail -n 2|head -n 1"
+        roll_tag = os.popen(cmd).read().strip()
+    if roll_tag.find("rollback_to") !=-1:    
+        temp_pos = roll_tag.rfind("online")
+        if temp_pos != -1:
+            roll_tag = roll_tag[temp_pos:]
+    cmd = "git diff origin/online %s"%roll_tag
+    diff = os.popen(cmd).read().strip()
+    if not diff:
+        print "current online version is same to %s"%roll_tag
+        return
+            
+    cmd = "git reset --hard %s;"%roll_tag
+    cmd += "git reset --soft origin/online;"
+    cmd += "git commit -am'rollback to %s';"%roll_tag
+    cmd += "git push -f origin HEAD:refs/heads/test;"
+    cmd += "git push -f origin HEAD:refs/heads/online;"
+    os.system(cmd)
+    print ""
+    os.system("git tag \"online_`date +%Y%m%d%H%M`_rollback_to_" + roll_tag +"\" ")
+    os.system("git push --tags")
+
+    count = 0
+    for (host,repodir) in g_hostlist:
+        print "\nonline env: %s:%s"%(host,repodir)
+        cmd = "ssh %s "%host
+        cmd += "'cd %s;"%repodir
+        cmd += "echo \"git fetch\";git fetch;"
+        cmd += "git checkout -b online 2>/dev/null;"
+        cmd += "echo \"git reset --hard origin/online\"; git reset --hard origin/online;"
+        if os.path.exists("deploy/%s"%g_reponame):
+            cmd += "echo \"%s deploy\"; cd deploy; ./%s postonline;"%(g_reponame,g_reponame)
+        if g_options.module_command:
+            cmd += "cd deploy; ./%s %s;"%(g_reponame, g_options.module_command)
+        cmd += g_options.command + "'"
+        os.system(cmd)
+        count += 1
+        if count < len(g_hostlist):
+            print "sleep %s seconds"%g_options.sleep_time
+            time.sleep(g_options.sleep_time)
+
+def main():
+    yes_no("Are you sure to rollback?","no")
+
+    global g_options, g_args,g_hostlist,g_reponame
+    parser = OptionParser()
+    parser.add_option("-c", "--command", dest="command",default="",
+            help="specify the shell command which will be run after online")
+    parser.add_option("-m", "--module-command", dest="module_command",default="",
+            help="specify the module command which will be run after online")
+    parser.add_option("-s", "--sleep-time",type="int",  dest="sleep_time",default=15,
+            help="specify the sleep time after online a machine")
+    (g_options, g_args) = parser.parse_args()
+    
+    g_reponame = get_reponame()
+    g_hostlist = get_host_list("deploy/online.conf")
+    rollback()
+
+if __name__ == "__main__":
+    main()

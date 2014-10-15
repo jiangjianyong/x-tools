@@ -1,0 +1,31 @@
+#!/usr/bin/python
+# coding=utf-8
+import os
+import sys
+from deploy_util import *
+
+option=""
+if len(sys.argv)>1:
+    option = sys.argv[1]
+
+if len(os.popen("git diff").read().strip()) > 0:
+    color_print("Error: 当前工作目录有未提交的内容\n")
+    exit()
+
+master = os.popen("git branch|grep '*'|grep master").read().strip()
+
+if len(master)==0 and option !="-f":
+    color_print("Error:请切换到master分支进行操作\n")
+    exit()
+
+#if current branch is master
+if len(master) > 0:
+    os.system("git fetch 1>/dev/null 2>/dev/null")
+    diff = os.popen("git diff master origin/master").read().strip()
+    if len(diff)>0:
+      color_print("Error: 请检查是否已经push到中心仓储\n")
+      exit()
+
+pushcmd = "git push origin HEAD:refs/heads/test %s"%option
+print pushcmd
+os.system(pushcmd)
