@@ -1,0 +1,74 @@
+#!/bin/bash
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
+export PATH
+
+# Check if user is root
+if [ $(id -u) != "0" ]; then
+    printf "Error: You must be root to run this script, use sudo !\n"
+    exit 1
+fi
+
+printf "=========================================================================\n"
+printf "Manager for LNMP V1.0  ,  Written by Licess \n"
+printf "=========================================================================\n"
+printf "LNMP is a tool to auto-compile & install Nginx+MySQL+PHP on Linux \n"
+printf "This script is a tool to Manage status of lnmp \n"
+printf "For more information please visit http://www.lnmp.org \n"
+printf "\n"
+printf "Usage: lnmp {start|stop|reload|restart|kill|status}\n"
+printf "=========================================================================\n"
+
+function_start()
+{
+    printf "Starting LNMP...\n"
+    nginx
+    php-fpm
+    mysql.server start
+}
+
+function_stop()
+{
+    printf "Stoping LNMP...\n"
+
+	nginx -s stop
+	mysql.server stop
+	kill -INT `cat /usr/var/run/php-fpm.pid`
+}
+
+function_reload()
+{
+    printf "Reload LNMP...\n"
+    nginx -s reload
+    kill -USR2 `cat /usr/var/run/php-fpm.pid`
+    mysql.server reload
+}
+
+function_kill()
+{
+    killall nginx
+    killall php-cgi
+    killall php-fpm
+    killall mysqld
+}
+
+case "$1" in
+    start)
+        function_start
+        ;;
+    stop)
+        function_stop
+        ;;
+    restart)
+        function_stop
+        function_start
+        ;;
+    reload)
+        function_reload
+        ;;
+    kill)
+        function_kill
+        ;;
+    *)
+        printf "Usage: /root/lnmp {start|stop|reload|restart|kill|status}\n"
+esac
+exit
