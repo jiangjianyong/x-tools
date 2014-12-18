@@ -1,0 +1,3 @@
+#!/bin/bash
+ip=`ifconfig|grep "inet.*cast"|awk '{print $2}'`
+echo "当前IP:"$ip
