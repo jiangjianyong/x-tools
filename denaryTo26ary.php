@@ -1,6 +1,7 @@
 <?php
 
 function denTo26Ary($num){
+  $num = $num + 1;
   $str = '';
   while($num > 0){
     $m   = $num%26;
