@@ -1,18 +1,15 @@
 <?php
 
 function denTo26Ary($num){
-  $str = array();
-
+  $str = '';
   while($num > 0){
-    $m = $num%26;
+    $m   = $num%26;
     if($m == 0){
-        $m = 26;
+      $m = 26;
     }
-    $str[] = chr($m + 64);
+    $str = chr($m + 64) . $str;
     $num = ($num-$m)/26;
   }
-  $str = array_reverse($str);
-  $str = join('', $str);
   return $str;
 }
 
