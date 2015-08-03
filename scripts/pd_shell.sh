@@ -26,5 +26,41 @@ do
   echo "$a is ok!"
 done;
 
+#对文件处理
+for o in a.py a.sh
+do
+  cat $o
+done
+
+# 对命令处理
+for o in $(ls)
+do
+  echo $o
+done
+
+# 遍历目录
+function dir(){
+  if test -d $1
+  then
+    for f in $(ls $1/*)
+    do
+      if test -f $f
+      then
+        echo $f
+      fi
+      
+      dir "$f"
+    done
+  fi
+}
+
+dir "./"
+
+
+
+
+
+
+
 
 
