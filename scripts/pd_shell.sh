@@ -58,6 +58,14 @@ dir "./"
 
 
 
+# 数组
+array=(1 2 3 4)
+
+length=$(#array[@])
+for((i=0; i<$length; i++))
+do
+  echo ${array[$i]}
+done;
 
 
 
