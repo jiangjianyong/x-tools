@@ -23,5 +23,5 @@ make && make install
 
 ###常见问题
 ###### TODO 通过源码安装pdo_oci时会出现一些问题
-> 1. configure: error: Unsupported Oracle version! 12.1
-> 将pdo_oci的版本由 PDO_OCI-1.0 换成 PDO_OCI-1.0RC2
+* configure: error: Unsupported Oracle version! 12.1
+* 将pdo_oci的版本由 PDO_OCI-1.0 换成 PDO_OCI-1.0RC2
