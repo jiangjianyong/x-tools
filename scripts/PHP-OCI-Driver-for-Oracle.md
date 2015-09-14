@@ -72,3 +72,6 @@ make
 make install
 
 ```
+
+
+######推荐地址(https://vufind.org/wiki/installing_the_php_oci_driver_for_oracle)
