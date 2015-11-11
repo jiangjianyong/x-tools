@@ -1,6 +1,10 @@
 
 ###源码中扩展文件安装(如pcntl扩展)
 ```
+wget http://cn2.php.net/distributions/php-5.5.7.tar.gz
+tar zxvf php-5.5.7.tar.gz
+cd php-5.5.7
+
 cd ext/pcntl
 /usr/bin/phpize
 ./configure --with-php-config=bin/php-config   #（ps:请正确的指定php-config的目录）
@@ -19,6 +23,13 @@ cd memcached
 phpize
 ./configure --with-php-config=bin/php-config 
 make && make install
+```
+
+###修改PHP配置文件, 加入相应扩展
+```
+extension=memcache.so
+extension=pcntl.so
+extension=oci8.so
 ```
 
 ###常见问题
