@@ -17,7 +17,8 @@ make && make install
 rpm -Uvh oracle-instantclient11.2-basic-11.2.0.3.0-1.x86_64.rpm 
 rpm -Uvh oracle-instantclient11.2-devel-11.2.0.3.0-1.x86_64.rpm 
 
-#第一个 RPM 将 Oracle 库放在 /usr/lib/oracle/11.2/client64/lib 中，第二个 RPM 在/usr/include/oracle/11.2/client64 中创建头。
+# 第一个 RPM 将 Oracle 库放在 /usr/lib/oracle/11.2/client64/lib 中
+# 第二个 RPM 在/usr/include/oracle/11.2/client64 中创建头。
 
 pecl install oci8
 ```
