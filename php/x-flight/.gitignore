@@ -1,0 +1,11 @@
+*.s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~
+.buildpath
+
+vendor/*
+apps/public/temp
+apps/temp
+

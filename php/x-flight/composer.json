@@ -1,0 +1,9 @@
+{
+    "require": {
+        "mikecao/flight": "^1.2",
+        "rmccue/requests": "^1.6",
+        "symfony/var-dumper": "^2.7",
+        "smarty/smarty": "^3.1",
+        "overtrue/wechat": "2.1.*"
+    }
+}
