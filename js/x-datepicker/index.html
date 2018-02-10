@@ -1,0 +1,45 @@
+<html>
+<head>
+	<meta charset="utf-8" />
+
+	<style>
+	.datePickerSelect {
+		width: 250px;
+		height: 40px;
+		border: 1px solid #ccc;
+		margin: 25px;
+	}
+	</style>	
+		
+	<script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="./select/src/datePickerSelect.js"></script>
+</head>
+
+<body>
+<div class="datePickerSelect" data-name="aaa" data-min_date="2014-12" data-max_date="2015-03"></div>
+<div class="datePickerSelect" data-name="bbb" data-min_date="2014-11"></div>
+
+<div class="datePickerSelect1" data-name="ccc" data-min_date="2014-11" data-max_date="2015-04-21"></div>
+
+
+<script>
+
+</script>
+
+<script>
+var ppp;
+$(function(){
+	
+	$(".datePickerSelect").datePickerSelect();
+
+	$(".datePickerSelect1").datePickerSelect({
+		format: 'Y-m-d'
+	});
+
+});
+</script>
+
+
+</body>
+
+</html>
