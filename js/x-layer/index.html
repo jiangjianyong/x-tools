@@ -1,0 +1,90 @@
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="./x-layer.js"></script>
+
+  <style>
+    .x-shade {
+        position: absolute; top: 0; left: 0; bottom: 0; width: 100%;
+        background-color: #ccc;
+        filter:progid:DXImageTransform.Microsoft.gradient(startcolorstr=#7F000000,endcolorstr=#7F000000);
+        filter:alpha(opacity=50); -moz-opacity:0.5; opacity:0.5;
+        overflow: auto;
+        z-index: 9999;
+        display: none;
+    }
+
+    :root .x-shade {
+        /* IE9 无 filter */
+        filter: none;
+    }
+
+    .x-box {
+        /*position: absolute; top: 62px; right: 0; bottom: 0; left: 200px;*/
+        margin: 20px auto;
+        width: 50%;
+        min-height: 30%;
+        overflow: auto;
+        background-color: #89a261;
+    }
+
+    .x-shade .x-title {
+      border: 1px solid;
+    }
+
+    .x-shade .x-contents {
+      border: 1px solid;
+    }
+
+    .x-overlay { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
+  </style>
+</head>
+<body>
+<br/><br/><br/><br/>
+<h3 class="x-open">点击测试: 内滚动布局</h3>
+<p>
+弹层中有编辑按钮~
+</p>
+
+<div class="x-shade">
+  <div class="x-box">
+    <div class="x-title">布局测试<div class="x-close">关闭</div></div>
+    <div class="x-contents">
+
+      <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+      qqqq
+      <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+      aaaa
+      <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+      ssss
+      <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+      <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+      qqqq
+      <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+      aaaa
+      <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+      ssss
+      <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+      aaaa
+      <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+      <a href="javascript:void(0)" id="click-items">编辑</a>
+      <div id="items" style="display:none;">
+        aaaa
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+        dddd
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+        ffff
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+        gggg
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+      </div>
+
+      <input type="button" name="btn" class="x-close" value="确定"/>
+
+    </div>
+  </div>
+</div>
+</body>
+</html>
