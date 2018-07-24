@@ -10,8 +10,8 @@
 
 | APP | URL  | 描述 | 
 | :-: | :-: | -: | 
-| wecenter | https://github.com/wecenter/wecenter  | - | 
-| showdoc | https://github.com/star7th/showdoc | - | 
+| wecenter | https://github.com/wecenter/wecenter  | WeCenter 是一款知识型的社交化开源社区程序 | 
+| showdoc | https://github.com/star7th/showdoc | [文档](https://www.showdoc.cc/web/#/help?page_id=14) | 
 | coffeephp | https://github.com/coffeephp/coffeephp | - | 
 | pay lib |https://github.com/yansongda/pay | - |
 | zenany/weekly | https://github.com/zenany/weekly | 汇总平时看到的好文章，技术、产品、管理均有，尽量保证一周汇总一篇 |
