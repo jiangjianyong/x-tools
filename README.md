@@ -12,8 +12,9 @@
 | :-: | :-: | -: | 
 | wecenter | https://github.com/wecenter/wecenter  | WeCenter 是一款知识型的社交化开源社区程序 | 
 | showdoc | https://github.com/star7th/showdoc | [文档](https://www.showdoc.cc/web/#/help?page_id=14) | 
-| coffeephp | https://github.com/coffeephp/coffeephp | - | 
-| pay lib |https://github.com/yansongda/pay | - |
+| coffeephp | https://github.com/coffeephp/coffeephp | 
+CoffeePHP社区是一个 PHP 开发者社区 | 
+| pay lib |https://github.com/yansongda/pay | 优雅的 Alipay 和 WeChat 的支付 SDK 扩展包 |
 | zenany/weekly | https://github.com/zenany/weekly | 汇总平时看到的好文章，技术、产品、管理均有，尽量保证一周汇总一篇 |
 | jobbole/awesome-programming-books | https://github.com/jobbole/awesome-programming-books | 经典编程书籍大全 |
 | weui-wxss | https://github.com/Tencent/weui-wxss | WeUI for 小程序 为微信小程序量身设计 | 
