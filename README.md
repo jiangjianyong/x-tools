@@ -8,6 +8,9 @@
 | 3 | devops | devops相关资料 | 
 
 
+### 积累
+---
+
 | APP | URL  | 描述 | 
 | :-: | :-: | -: | 
 | wecenter | https://github.com/wecenter/wecenter  | WeCenter 是一款知识型的社交化开源社区程序 | 
@@ -25,3 +28,10 @@ CoffeePHP社区是一个 PHP 开发者社区 |
 | docker-unoconv-webservice | https://github.com/zrrrzzt/docker-unoconv-webservice | - |
 | docker-xhprof | https://github.com/monsieurchico/docker-xhprof | - |
 | gywbd blog | https://gywbd.github.io/ | - |
+| go 学习 | https://github.com/astaxie/build-web-application-with-golang/blob/master/zh/preface.md | - |
+| architecture.meituan-dianping | https://github.com/davideuler/architecture.meituan-dianping | 互联网公司架构: 美团点评技术架构 
+| wuleying/PHP | https://github.com/wuleying/PHP | php/redis 源码学习笔记 |
+| overtrue/pinyin | https://github.com/overtrue/pinyin | 基于词库的中文转拼音优质解决方案 |
+| awesome-php-zh_CN | https://github.com/CraryPrimitiveMan/awesome-php-zh_CN | 一个PHP资源列表 | 
+| formbuilder | https://github.com/dobtco/formbuilder | Formbuilder.js | 
+| Codeception | https://github.com/Codeception/Codeception | Full-stack testing PHP framework |
